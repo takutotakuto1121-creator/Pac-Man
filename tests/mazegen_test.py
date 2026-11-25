@@ -1,6 +1,8 @@
 from mazegenerator import MazeGenerator
 
 mazegen = MazeGenerator()
+
+# @propertyがついてるメソッドから持ってくる
 maze = mazegen.maze
 path = mazegen.shortest_path
 entry = mazegen.maze_entry
