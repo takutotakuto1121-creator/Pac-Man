@@ -19,4 +19,4 @@ class Parser():
     def __init__():
 
 
-    def parse() -> Config
+    def parse() -> Config:

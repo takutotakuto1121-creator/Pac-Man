@@ -27,7 +27,7 @@ class Pinky(Ghost):
 
 class Inky(Ghost):
     """ 水色 """
-    def update()
+    def update():
 
 
 class Clyde(Ghost):
@@ -36,4 +36,7 @@ class Clyde(Ghost):
 
 
 class PacMan(Entity):
-    def update()
+    # 押されたボタンの情報とか
+    def __init__():
+
+    def update():
