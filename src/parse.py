@@ -2,6 +2,7 @@ from pydantic import BaseModel, model_validator, Field
 import sys
 import json
 from mazegenerator import MazeGenerator
+from enum import Enum
 
 class Config(BaseModel):
     highscore_filename: str
@@ -23,10 +24,25 @@ class Config(BaseModel):
         return self
 
 
+class WindowData(BaseModel):
+    width: int = Field(ge=10, default=800)
+    height: int = Field(ge=10, default=600)
+
+
+class GameState(str, Enum):
+    menu = "menu"
+    game = "game"
+    win = "win"
+    lose = "lose"
+    clear = "clear"
+
+
 class GameData(BaseModel):
     """ 適宜追加 """
     config: Config
     mazes: list[list[list[int]]]
+    window: WindowData = Field(default=WindowData())
+    state: GameState = Field(default="menu")
 
 
 class Parser():
@@ -62,11 +78,13 @@ class Parser():
             self._config = Config(**config)
 
     def _get_game_data(self):
-        """ 仮で全レベルseedがレベルの迷路に """
+        mazegen = MazeGenerator()
         self._mazes = []
         for level in self._config.level:
-            mazegen = MazeGenerator(seed=level)
-            maze = mazegen.maze
+            if level == 1:
+                maze = mazegen.generate(seed=self._config.seed)
+            else:
+                mazegen = MazeGenerator
             self._mazes.append(maze)
         self._game_data = GameData(
             config=self._config,
