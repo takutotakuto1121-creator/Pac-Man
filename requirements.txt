@@ -2,7 +2,6 @@ annotated-types==0.8.0
 ast_serialize==0.13.1
 flake8==7.4.1
 librt==0.17.0
-mazegenerator @ file:///goinfre/tsugimot/Pac-Man/mazegenerator-2.1.0-py3-none-any.whl
 mccabe==0.7.0
 mypy==2.4.1
 mypy_extensions==1.2.0
@@ -15,3 +14,4 @@ pygame==2.6.1
 tomli==2.5.0
 typing-inspection==0.4.5
 typing_extensions==4.16.0
+./mazegenerator-2.1.0-py3-none-any.whl
