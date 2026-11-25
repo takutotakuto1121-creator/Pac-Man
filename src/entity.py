@@ -1,8 +1,8 @@
 from abc import ABC, abstractmethod
 
 class Entity(ABC):
-    def __init__(self, pos: tuple[int, int]) -> None:
-        self.pos = pos
+    def __init__(self, config: Config) -> None:
+        self.config = config
 
     @abstractmethod
     def update(self):
@@ -10,7 +10,7 @@ class Entity(ABC):
 
 
 class Ghost(Entity):
-    def __init__(self, pos: tuple[int, int]) -> None:
+    def __init__(self, config: Config) -> None:
         super().__init__()
         self.edible = False
 
