@@ -2,7 +2,6 @@ from pydantic import BaseModel, model_validator, Field
 import sys
 import json
 from mazegenerator import MazeGenerator
-import random
 
 class Config(BaseModel):
     highscore_filename: str
