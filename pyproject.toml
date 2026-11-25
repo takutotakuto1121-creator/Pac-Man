@@ -1,0 +1,9 @@
+[project]
+name = "pac-man"
+version = "1.0.0"
+
+dependencies = [
+  "flake8",
+  "mypy",
+  "pygame"
+]
