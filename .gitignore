@@ -1,3 +1,5 @@
 .DS_Store
 *.pdf
 .venv
+mazegenerator
+mazegenerator-2.1.0.dist-info
