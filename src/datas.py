@@ -1,22 +1,13 @@
 """
 ゲーム内で使用するデータ構造を決定するモジュール。
+config.json内の情報のうち、levelsのみJsonConfigではなく独立してLevelConfigに格納されていることに注意。
 """
 
-from pydantic import BaseModel, model_validator, Field
+from pydantic import BaseModel, model_validator, Field, ConfigDict
 from dataclasses import dataclass
-from src.enum import GameScene, Direction, CharacterName
-
-@dataclass(frozen=True)
-class Level(BaseModel):
-    """
-    config.jsonのlevelsの情報を格納するクラス。
-    """
-    level: int
-    width: int
-    height: int
+from src.enums import GameScene, Direction, CharacterName, GhostMode
 
 
-@dataclass(frozen=True)
 class JsonConfig(BaseModel):
     """
     config.jsonの情報を格納するデータクラス。
@@ -29,33 +20,35 @@ class JsonConfig(BaseModel):
     points_per_ghost: int = Field(ge=1)
     seed: int
     level_max_time: int = Field(ge=1)
-    levels: list[Level]
 
 
 @dataclass(frozen=True)
-class WindowConfig(BaseModel):
+class WindowConfig:
     """"
     pygameで作成するwindowに関するデータを格納するデータクラス
     """
     width: int
     height: int
 
-@dataclass
+@dataclass(frozen=True)
 class Position:
     x: int
     y: int
 
 
-@dataclass(frozen=True)
-class LevelConfig:
+class JsonLevelConfig(BaseModel):
     level: int
     width: int
     height: int
+
+
+class LevelConfig(JsonLevelConfig):
+    model_config = ConfigDict(frozen=True)
     maze: list[list[int]]
     spawns: dict[CharacterName, Position]
     pacman_dir: Direction
     pacgum: set[Position]
-    super_pucgum: set[Position]
+    super_pacgum: set[Position]
 
 
 @dataclass(frozen=True)
@@ -70,11 +63,11 @@ class GameConfig:
 @dataclass
 class SessionState:
     """
-    Level毎に変化する値を格納するデータクラス。
+    新しいゲームを始めた時にリセットされる値を格納するデータクラス。
     """
     scene: GameScene
     score: int
-    until_dead: int
+    lives_left: int
     level_index: int
 
 
@@ -83,10 +76,11 @@ class LevelState:
     """
     Levelの中で変化する値を格納するデータクラス
     """
-    pos: dict[Position]
+    pos: dict[CharacterName, Position]
+    ghost_mode: dict[CharacterName, GhostMode]
     pacman_dir: Direction
     pacgum: set[Position]
-    super_pucgum: set[Position]
+    super_pacgum: set[Position]
     edible_time_left: float
     game_time_left: float
 

@@ -1,3 +1,7 @@
+"""
+ゲーム内で使用する列挙型(Enum)を列挙するモジュール。
+"""
+
 from enum import Enum, auto
 
 class GameScene(Enum):
@@ -24,3 +28,11 @@ class CharacterName(Enum):
     INKY = auto()
     CLYDE = auto()
     PACMAN = auto()
+
+
+class GhostMode(Enum):
+    SCATTER = auto()
+    CHASE = auto()
+    FRIGHTEN = auto()
+    EATEN = auto()
+    HOUSE = auto()

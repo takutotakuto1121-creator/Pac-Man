@@ -1,8 +1,8 @@
 # Pac-Man configuration file
-# Lines that starts with "#" are ignored. 
+# Lines that start with "#" are ignored. 
 
 {
-    "highscore_filename": "highscore.txt",
+    "highscore_filename": "highscore.json",
     "lives": 3,
     "pacgum": 42,
     "points_per_pacgum": 10,
@@ -10,7 +10,7 @@
     "points_per_ghost": 200,
     "seed": 42,
     "level_max_time": 90,
-    "levels": {
+    "levels": [
         {
             "level": 1,
             "width": 10,
@@ -21,5 +21,5 @@
             "width": 12,
             "height": 12
         }
-    }
+    ]
 }
