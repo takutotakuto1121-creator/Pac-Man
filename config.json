@@ -1,14 +1,25 @@
+# Pac-Man configuration file
+# Lines that starts with "#" are ignored. 
+
 {
-    # comments
     "highscore_filename": "highscore.txt",
-    "level": [1, 2, 3, 4, 5, 6, 7, 8, 9],
-    "width": [15, 15, 15, 15, 15, 15, 15, 15, 15],
-    "height": [15, 15, 15, 15, 15, 15, 15, 15, 15],
     "lives": 3,
     "pacgum": 42,
     "points_per_pacgum": 10,
     "points_per_super_pacgum": 50,
     "points_per_ghost": 200,
     "seed": 42,
-    "level_max_time": 90
+    "level_max_time": 90,
+    "levels": {
+        {
+            "level": 1,
+            "width": 10,
+            "height": 10 
+        },
+        {
+            "level": 2,
+            "width": 12,
+            "height": 12
+        }
+    }
 }

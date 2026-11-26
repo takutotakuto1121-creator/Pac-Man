@@ -22,8 +22,6 @@ class Config(BaseModel):
 
     @model_validator(mode="after")
     def validate_details(self):
-        if self.height * self.width - 5 < self.points_per_pacgum:
-            raise ValueError("the number of pacgum must be less than (width * height - 5)")
         if len(self.level) != len(self.width):
             raise ValueError("the number of width must be equal to width")
         if len(self.level) != len(self.height):
@@ -68,8 +66,8 @@ class GameContext(BaseModel):
     pacman_dir: Direction = Direction.right
     edible_time_left: float = 0.0
     total_time_left: float = 0.0
-    pacgum_exist: list[list[bool]]
-    super_pacgum_exist: list[list[bool]]
+    pacgum_exist: set[Pos]
+    super_pacgum_exist: set[Pos]
 
     @model_validator(mode="after")
     def validate_details(self):
@@ -79,7 +77,7 @@ class GameData(BaseModel):
     """ 適宜追加 """
     config: Config              # 書き換えない。
     setting: list[GameContext]  # 書き換えない。初期値の保存
-    current: list[GameContext]  # こっちを書き換える。
+    current: GameContext        # こっちを書き換える。
     level_index: int = 0        # 書き換える
     score: int = 0              # 書き換える
     dead_count: int = 0         # 書き換える
