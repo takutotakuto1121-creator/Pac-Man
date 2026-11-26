@@ -29,6 +29,7 @@ class WindowConfig:
     """
     width: int
     height: int
+    fps: int
 
 @dataclass(frozen=True)
 class Position:

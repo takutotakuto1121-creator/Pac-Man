@@ -10,7 +10,7 @@ class GameScene(Enum):
     INSTRUCTION = auto()
     GAME = auto()
     PAUSE = auto()
-    LEVEL_CLEARED = auto()
+    LEVEL_CLEARE = auto()
     GAME_OVER = auto()
     GAME_CLEAR = auto()
 
