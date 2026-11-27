@@ -35,8 +35,8 @@ list[Character]
 メインループで
 ```python
 def step():
-    updata_character()
-    detect_collision()
+    updata_character() # forのループで全部呼び出す
+    detect_collision() # 本来forの二重ループやけどパックマンだけでいいか
     ...
     draw() # これは担当じゃない
 ```
