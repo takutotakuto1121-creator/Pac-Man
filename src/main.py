@@ -1,17 +1,17 @@
-import pygame
+# import pygame
 
-def main():
-    ...
-    while running:
-        for event in pygame.event.get():
-            ...
+# def main():
+#     ...
+#     while running:
+#         for event in pygame.event.get():
+#             ...
 
-        if state == "menu":
-            # update
-            # draw
-        elif state == "game":
-            # update(Entityの情報を更新)
-            # draw(描画)
-        ...
+#         if state == "menu":
+#             # update
+#             # draw
+#         elif state == "game":
+#             # update(Entityの情報を更新)
+#             # draw(描画)
+#         ...
 
-        clock.tick(60)
+#         clock.tick(60)

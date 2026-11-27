@@ -41,6 +41,7 @@ class WindowConfig:
     height: int = field(default=600)
     fps: int = field(default=60)
 
+
 @dataclass(frozen=True)
 class Position:
     """
@@ -50,25 +51,14 @@ class Position:
     y: int
 
 
-class JsonLevelConfig(BaseModel):
+class LevelConfig(BaseModel):
     """
-    config.jsonのうち、levelsの情報のみを格納するクラス。
+    config.jsonのうち、levelsの情報と迷路の情報格納するクラス。
     """
-    level: int  = Field(ge=1)
+    level: int  = Field(ge=0)
     width: int = Field(ge=3)
-    height: int =Field(ge=3)
-
-
-class LevelConfig(JsonLevelConfig):
-    """
-    各levelに関する情報を格納するクラス。
-    """
-    model_config = ConfigDict(frozen=True)
+    height: int = Field(ge=3)
     maze: list[list[int]]
-    spawns: dict[CharacterName, Position]
-    pacman_dir: Direction
-    pacgum: set[Position]
-    super_pacgum: set[Position]
 
 
 @dataclass(frozen=True)
@@ -106,8 +96,6 @@ class LevelState:
     house_time_left: float
     game_time_left: float
 
-    def pacman_moveとか適当に作る
-
 
 class GameData:
     """
@@ -127,16 +115,16 @@ class GameData:
     def _init_session(self) -> SessionState:
         score = 0
         lives_left = self.config.setting.lives
-        level_index = 0
+        level = 0
 
         return SessionState(
-            score=score
-            lives_left=lives_left
-            level_index=level_index
+            score=score,
+            lives_left=lives_left,
+            level=level
         )
 
     def reset_level_as(self, level: int) -> LevelState:
-        level_config = self.congig.levels[level]
+        level_config = self.config.levels[level]
 
         pos = self._init_level_pos(level_config)
         ghost_mode = self._init_ghost_mode()
@@ -165,7 +153,7 @@ class GameData:
         height = level_config.height
 
         pacman_pos = Position(x=width // 2, y=height // 2)
-        blinky_pos = Positoin(x=0, y=0)
+        blinky_pos = Position(x=0, y=0)
         pinky_pos = Position(x=width - 1, y=0)
         inky_pos = Position(x=width -1 , y=height - 1)
         clyde_pos = Position(x=0, y=height - 1)
@@ -191,8 +179,9 @@ class GameData:
     def _init_pacgum(self, level_config: LevelConfig) -> set[Position]:
         pacgum = {}
         pacgum_num = self.config.setting.pacgum
+        return {}
 
-    def _init_super_pacgum(self, level_config: LevelCongig) -> set[Position]:
+    def _init_super_pacgum(self, level_config: LevelConfig) -> set[Position]:
         width = level_config.width
         height = level_config.height
 
@@ -205,3 +194,4 @@ class GameData:
 
 
 if __name__ == "__main__":
+    pass
