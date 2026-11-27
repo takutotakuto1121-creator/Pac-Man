@@ -1,7 +1,7 @@
 from abc import ABC, abstractmethod
 
-class Entity(ABC):
-    def __init__(self, config: Config) -> None:
+class Character(ABC):
+    def __init__(self, aaa) -> None:
         self.config = config
 
     @abstractmethod
@@ -9,7 +9,7 @@ class Entity(ABC):
         ...
 
 
-class Ghost(Entity):
+class Ghost(Character):
     def __init__(self, config: Config) -> None:
         super().__init__()
         self.edible = False
@@ -35,7 +35,7 @@ class Clyde(Ghost):
     def update():
 
 
-class PacMan(Entity):
+class PacMan(Character):
     # 押されたボタンの情報とか
     def __init__():
 

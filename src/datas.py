@@ -4,9 +4,9 @@
 
 GameData                    : ゲーム内のすべてのデータ
 ├── GameConfig              : ゲーム内で変化しないデータ
-│   ├──JsonConfig           : levels以外のjson.configのデータ
-│   ├──WindowConfig         : pygameで作成するwindowに関するデータ
-│   ├──list[LevelConfig]    : 各レベルの変化しないデータのリスト
+│   ├── JsonConfig          : levels以外のjson.configのデータ
+│   ├── WindowConfig        : pygameで作成するwindowに関するデータ
+│   └── list[LevelConfig]   : 各レベルの変化しないデータのリスト
 ├── GameScene               : ゲームの状態(MenuやGameOverなど)のデータ(enums.pyに書いている)
 ├── SessionState            : ゲームをリスタートしたときにリセットされるデータ。ゲームを通して変化する。
 └── LevelState              : ゲーム内でレベルが変わる際にリセットされるデータ。レベル内で変化する。
@@ -80,6 +80,7 @@ class GameConfig:
     window: WindowConfig
     levels: list[LevelConfig]
 
+
 @dataclass
 class SessionState:
     """
@@ -100,12 +101,12 @@ class LevelState:
     pacman_dir: Direction
     pacgum: set[Position]
     super_pacgum: set[Position]
+    eat_count: int
     eaten_time_left: float
     house_time_left: float
     game_time_left: float
 
 
-@dataclass
 class GameData:
     """
     プロジェクト全体で使用する変数をまとめたクラス。
@@ -114,3 +115,69 @@ class GameData:
     scene: GameScene
     session: SessionState
     level: LevelState
+
+    def __init__(self, config: GameConfig) -> None:
+        self.config = config
+        self.scene = GameScene.MENU
+        self.session = self._init_session()
+        self.level = self.reset_level_as(0)
+
+    def _init_session(self) -> SessionState:
+        score = 0
+        lives_left = self.config.setting.lives
+        level_index = 0
+
+        return SessionState(
+            score=score
+            lives_left=lives_left
+            level_index=level_index
+        )
+
+    def reset_level_as(self, level: int) -> LevelState:
+        level_config = self.congig.levels[level]
+        maze = level_config.maze
+
+        pos = self._init_level_pos(level_config)
+        ghost_mode = self._init_ghost_mode(level_config)
+        pacman_dir = Direction.RIGHT
+        pacgum = self._init_pacgum(level_config)
+
+    def _init_level_pos(self, level_config: LevelConfig) -> dict[CharacterName, Position]:
+        width = level_config.width
+        height = level_config.height
+
+        pacman_pos = Position(x=width // 2, y=height // 2)
+        blinky_pos = Positoin(x=0, y=0)
+        pinky_pos = Position(x=width - 1, y=0)
+        inky_pos = Position(x=width -1 , y=height - 1)
+        clyde_pos = Position(x=0, y=height - 1)
+
+        pos = {
+            CharacterName.PACMAN: pacman_pos,
+            CharacterName.BLINKY: blinky_pos,
+            CharacterName.PINKY: pinky_pos,
+            CharacterName.INKY: inky_pos,
+            CharacterName.CLYDE: clyde_pos
+        }
+
+        return pos
+
+    def _init_ghost_mode(self, level_config: LevelConfig) -> dict[CharacterName, GhostMode]:
+        return {
+            CharacterName.BLINKY: GhostMode.SCATTER,
+            CharacterName.PINKY: GhostMode.SCATTER,
+            CharacterName.INKY: GhostMode.SCATTER,
+            CharacterName.CLYDE: GhostMode.SCATTER
+        }
+
+    def _init_pacgum(self, level_config: LevelConfig) -> set[Position]:
+        pacgum = {}
+        pacgum_num = self.config.setting.pacgum
+
+
+
+
+
+
+
+if __name__ == "__main__":

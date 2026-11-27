@@ -38,11 +38,11 @@ class CharacterName(Enum):
     """
     キャラクターの名前を列挙。
     """
+    PACMAN = auto()
     BLINKY = auto()
     PINKY = auto()
     INKY = auto()
     CLYDE = auto()
-    PACMAN = auto()
 
 
 class GhostMode(Enum):
