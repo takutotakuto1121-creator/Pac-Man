@@ -2,9 +2,7 @@ import pygame as pg
 import sys
 
 
-def menu_start() -> None:
-    WIDTH = 800
-    HEIGHT = 600
+def menu_start(WIDTH: int, HEIGHT: int) -> None:
     pg.init()
     screen = pg.display.set_mode((WIDTH, HEIGHT))
     pg.display.set_caption("Start Menu")
@@ -24,8 +22,8 @@ def menu_start() -> None:
             start = font.render("Push space to start", True, TITLE_COL)
             score = font.render("High scores:", True, SCORE_COL)
             title_spot = img.get_rect(center=(WIDTH / 2, HEIGHT / 4))
-            intro_spot = img.get_rect(center=(WIDTH / 2, HEIGHT / 2))
-            score_spot = img.get_rect(center=(WIDTH / 2, HEIGHT / 1.5))
+            score_spot = score.get_rect(center=(WIDTH / 2, HEIGHT / 2 + 70))
+            intro_spot = start.get_rect(center=(WIDTH / 2, HEIGHT / 2 - 30))
             screen.blit(img, title_spot)
             screen.blit(start, intro_spot)
             screen.blit(score, score_spot)
@@ -41,4 +39,4 @@ def menu_start() -> None:
 
 
 if __name__ == "__main__":
-    menu_start()
+    menu_start(800, 600)
