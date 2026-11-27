@@ -88,7 +88,7 @@ class SessionState:
     """
     score: int
     lives_left: int
-    level_index: int
+    level: int
 
 
 @dataclass
@@ -105,6 +105,8 @@ class LevelState:
     eaten_time_left: float
     house_time_left: float
     game_time_left: float
+
+    def pacman_moveとか適当に作る
 
 
 class GameData:
@@ -135,12 +137,28 @@ class GameData:
 
     def reset_level_as(self, level: int) -> LevelState:
         level_config = self.congig.levels[level]
-        maze = level_config.maze
 
         pos = self._init_level_pos(level_config)
-        ghost_mode = self._init_ghost_mode(level_config)
+        ghost_mode = self._init_ghost_mode()
         pacman_dir = Direction.RIGHT
         pacgum = self._init_pacgum(level_config)
+        super_pacgum = self._init_super_pacgum(level_config)
+        eat_count = 0
+        eaten_time_left = 0
+        house_time_left = 0
+        game_time_left = self.config.setting.level_max_time
+
+        return LevelState(
+            pos=pos,
+            ghost_mode=ghost_mode,
+            pacman_dir=pacman_dir,
+            pacgum=pacgum,
+            super_pacgum=super_pacgum,
+            eat_count=eat_count,
+            eaten_time_left=eaten_time_left,
+            house_time_left=house_time_left,
+            game_time_left=game_time_left
+        )
 
     def _init_level_pos(self, level_config: LevelConfig) -> dict[CharacterName, Position]:
         width = level_config.width
@@ -162,7 +180,7 @@ class GameData:
 
         return pos
 
-    def _init_ghost_mode(self, level_config: LevelConfig) -> dict[CharacterName, GhostMode]:
+    def _init_ghost_mode(self) -> dict[CharacterName, GhostMode]:
         return {
             CharacterName.BLINKY: GhostMode.SCATTER,
             CharacterName.PINKY: GhostMode.SCATTER,
@@ -174,10 +192,16 @@ class GameData:
         pacgum = {}
         pacgum_num = self.config.setting.pacgum
 
+    def _init_super_pacgum(self, level_config: LevelCongig) -> set[Position]:
+        width = level_config.width
+        height = level_config.height
 
-
-
-
+        return {
+            Position(0, 0),
+            Position(width - 1, 0),
+            Position(width - 1, height - 1),
+            Position(0, height - 1)
+        }
 
 
 if __name__ == "__main__":

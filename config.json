@@ -1,5 +1,5 @@
 # Pac-Man configuration file
-# Lines that start with "#" are ignored. 
+# Lines that start with "#" are ignored.
 
 {
     "highscore_filename": "highscore.json",
@@ -12,12 +12,12 @@
     "level_max_time": 90,
     "levels": [
         {
-            "level": 1,
+            "level": 0,
             "width": 10,
-            "height": 10 
+            "height": 10
         },
         {
-            "level": 2,
+            "level": 1,
             "width": 12,
             "height": 12
         }
