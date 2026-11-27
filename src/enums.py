@@ -1,10 +1,19 @@
 """
 ゲーム内で使用する列挙型(Enum)を列挙するモジュール。
+各クラスの役割は以下。
+
+GameScene       : ゲーム画面の状態
+Direction       : キャラクターの向く方向
+CharacterName   : キャラクターの名前
+GhostMode       : ゴーストの状態
 """
 
 from enum import Enum, auto
 
 class GameScene(Enum):
+    """
+    ゲームの画面の状態を列挙。
+    """
     MENU = auto()
     HIGHSCORE = auto()
     INSTRUCTION = auto()
@@ -16,6 +25,9 @@ class GameScene(Enum):
 
 
 class Direction(Enum):
+    """
+    キャラクターの向く方向を列挙。
+    """
     UP = auto()
     DOWN = auto()
     LEFT = auto()
@@ -23,6 +35,9 @@ class Direction(Enum):
 
 
 class CharacterName(Enum):
+    """
+    キャラクターの名前を列挙。
+    """
     BLINKY = auto()
     PINKY = auto()
     INKY = auto()
@@ -31,6 +46,9 @@ class CharacterName(Enum):
 
 
 class GhostMode(Enum):
+    """
+    ゴーストの状態を列挙。
+    """
     SCATTER = auto()
     CHASE = auto()
     FRIGHTEN = auto()
