@@ -37,9 +37,9 @@ class WindowConfig:
     """"
     pygameで作成するwindowに関するデータを格納するデータクラス
     """
-    width: int = field(default=800)
-    height: int = field(default=600)
-    fps: int = field(default=60)
+    width: int = field(default=800, ge=400, le=1600)
+    height: int = field(default=600, ge=300, le=1200)
+    fps: int = field(default=60, ge=30, le=120)
 
 
 @dataclass(frozen=True)
@@ -59,7 +59,7 @@ class LevelConfig(BaseModel):
     width: int = Field(ge=3)
     height: int = Field(ge=3)
     maze: list[list[int]]
-    
+
 
 @dataclass(frozen=True)
 class GameConfig:

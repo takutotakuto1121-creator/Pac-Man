@@ -1,10 +1,12 @@
 from abc import ABC, abstractmethod
-from src.data.datas import LevelConfig
+from src.data.datas import LevelConfig, LevelState
 from src.data.enums import Direction
 from math import floor, sqrt
+from pygame import clock
 
 class Character(ABC):
     config: LevelConfig
+    spawn: tuple[int, int]
     x: float
     y: float
     current_dir: Direction
@@ -14,11 +16,16 @@ class Character(ABC):
 
     def __init__(self, config: LevelConfig) -> None:
         self.config = config
-        self.x, self.y = self._get_spwan_point()
+        self.spawn = self._get_spawn_point()
+        self.x, self.y = self.spawn
         self.current_dir = Direction.RIGHT
         self.next_dir = Direction.RIGHT
         self.speed_multiplier = 1
         self.speed = self._get_default_speed() * self.speed_multiplier
+
+    @abstractmethod
+    def update(self, dt: float, level: LevelState) -> None:
+        ...
 
     @abstractmethod
     def _get_spawn_point(self) -> tuple[int, int]:
@@ -29,10 +36,10 @@ class Character(ABC):
         ...
 
     @abstractmethod
-    def _get_next_dir(self) -> Direction:
+    def _get_next_dir(self, level: LevelState) -> Direction:
         ...
 
-    def update(self, dt: float) -> None:
+    def _move(self, dt: float) -> None:
         """
         座標を更新する。手順は以下の通り。
 
@@ -58,7 +65,7 @@ class Character(ABC):
             self.current_dir == self.next_dir
 
         total = self.speed * dt
-        nearest = self._get_nearest_center()
+        nearest = self._get_next_center()
         distance_to_center = self._get_distance_to(nearest)
         distance_direction, distance_next_direction = self._get_direction_distance(total, distance_to_center, nearest)
         self._update_position(self, distance_direction, distance_next_direction)
@@ -91,7 +98,7 @@ class Character(ABC):
 
         return False
 
-    def _get_nearest_center(self) -> tuple[int, int]:
+    def _get_next_center(self) -> tuple[int, int]:
         """
         現在の座標からdirectionの向きに存在する最も近いセルの中心座標を求める。
 
