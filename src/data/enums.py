@@ -54,3 +54,13 @@ class GhostMode(Enum):
     FRIGHTEN = auto()
     EATEN = auto()
     HOUSE = auto()
+
+
+class Speed(Enum):
+    """
+    キャラクターの各状態のスピードを列挙
+    """
+    PACMAN = 13
+    GHOST_NORMAL = 9
+    GHOST_EATEN = 5
+    GHOST_HOUSE = 32

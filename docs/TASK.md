@@ -31,7 +31,7 @@ aaaa
 
 まあ普通にCharacterに持たせて
 list[Character]
-をGameDataに持たせて、
+をLevelStateに持たせて、
 メインループで
 ```python
 def step():
@@ -41,3 +41,9 @@ def step():
     draw() # これは担当じゃない
 ```
 みたいな感じでやる
+
+fps依存の回避
+前回の呼び出しからの秒数dtをかけた分だけ移動させることにより回避
+dt = clock.tick(fps) / 1000
+
+スピードの調整はSpeedを倍率を最後にいい感じに調整

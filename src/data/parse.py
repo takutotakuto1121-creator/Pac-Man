@@ -1,4 +1,4 @@
-from src.datas import (
+from src.data.datas import (
     JsonConfig, LevelConfig, WindowConfig, GameConfig, GameData
 )
 from mazegenerator import MazeGenerator

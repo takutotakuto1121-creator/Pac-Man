@@ -1,4 +1,4 @@
-from src.parse import Config, Parser
+from src.data.parse import Config, Parser
 
 def main():
     parser = Parser()

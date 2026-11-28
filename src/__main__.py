@@ -1,4 +1,4 @@
-from src.parse import Parser
+from src.data.parse import Parser
 
 parser = Parser()
 print(parser.gamedata.config)

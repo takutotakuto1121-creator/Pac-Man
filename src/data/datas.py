@@ -14,7 +14,7 @@ GameData                    : ゲーム内のすべてのデータ
 
 from pydantic import BaseModel, model_validator, Field, ConfigDict
 from dataclasses import dataclass, field
-from src.enums import GameScene, Direction, CharacterName, GhostMode
+from src.data.enums import GameScene, Direction, CharacterName, GhostMode
 
 
 class JsonConfig(BaseModel):
@@ -59,7 +59,7 @@ class LevelConfig(BaseModel):
     width: int = Field(ge=3)
     height: int = Field(ge=3)
     maze: list[list[int]]
-
+    
 
 @dataclass(frozen=True)
 class GameConfig:
