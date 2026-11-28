@@ -11,3 +11,5 @@ class Ghost(Character):
 
     def _get_default_speed(self):
         return Speed.GHOST_NORMAL
+
+    def 
